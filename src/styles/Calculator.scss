@@ -1,0 +1,119 @@
+@import "App";
+.calculator-wrapper{
+  background: aqua;
+}
+
+.calculator-wrapper{
+  width: 50vw;
+
+  h2{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+
+}
+
+.selected-toppings-wrapper {
+  h3{
+    font-family: OpenSans-SemiBold, serif;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.static-selector-wrapper{
+  h3{
+    font-size: 14px;
+    line-height: 21px;
+    color: rgba(0, 0, 0, 0.49);
+  }
+  ol{
+    align-content: center;
+  }
+
+  li{
+    max-width: 200px;
+    text-align: center;
+    margin-bottom: 7px;
+    border-radius: 22px;
+    padding: 8px 0px;
+    margin-inline: 2px;
+    border: 1px solid rgb(190, 190, 190);
+    background-color: rgb(255, 255, 255);
+    flex: 1 1 calc(33% - 14px);
+  }
+
+}
+.toppings-tabs{
+  ol{
+    margin-bottom: 31px;
+    flex-flow: row wrap;
+    display: flex;
+
+    li{
+      border: 0px solid rgb(0, 0, 0);
+      box-sizing: border-box;
+      display: flex;
+      flex-basis: auto;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: relative;
+      min-height: 0px;
+      z-index: 0;
+      cursor: pointer;
+      background-color: rgb(255, 255, 255);
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 11px 31px;
+      border-radius: 12px;
+      max-width: 200px;
+      padding: 20px 10px;
+      -webkit-box-align: center;
+      align-items: center;
+      margin-right: 9px;
+      margin-bottom: 9px;
+      min-width: 143px;
+
+    }
+  }
+
+}
+
+.topping-category-wrapper{
+  h4{
+    box-sizing: border-box;
+    position: relative;
+    z-index: 0;
+    margin-bottom: 30px;
+    font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: inline-block;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 2rem;
+    line-height: 36px;
+    color: rgb(0, 0, 0);
+    margin-right: 5px;
+  }
+}
+.topping-items{
+  flex-flow: row wrap;
+  display: flex;
+}
+
+.topping-select-item{
+  width: 200vw;
+  position: relative;
+  img{
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+  }
+}

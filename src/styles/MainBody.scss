@@ -1,0 +1,14 @@
+@import "App";
+
+.main-body{
+  background: red;
+  margin-top: $header-height + 2vh;
+  margin-inline: 2rem;
+  justify-content: space-around;
+
+}
+
+.pizza-img{
+  height: 50vh;
+}
+
