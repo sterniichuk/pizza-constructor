@@ -37,7 +37,7 @@ function Calculator() {
             <div className="topping-items">
                 {(myMap.get(tab) || []).map(name => (
                     <div key={name} className="topping-select-item">
-                        <img src={notFound} alt="not found"/>
+                        <img className="topping-select-item-img" src={notFound} alt="not found"/>
                         <div className="topping-select-title">{name}</div>
                         <ItemCounter/>
                     </div>
