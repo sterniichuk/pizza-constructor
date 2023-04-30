@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState} from 'react';
 import './styles/Calculator.scss';
-import ItemCounter from "./ItemCounter";
-import notFound from "./img/not-found.webp"
 import StaticSelector from "./StaticSelector";
+import ToppingsSelector from "./ToppingsSelector";
 
 function Calculator() {
     const sizeNames = ["Standard size", "Large", "ExtraLarge", "XXLarge"]
 
     const toppings = ["Domino's sauce", "Mozarella"].map((topping, index) => (
-        <li  key={index}>{topping}, </li>
+        <li key={index}>{topping}, </li>
     ));
     const dough = ["Thick crust", "Thin", "Philadelphia", "Hot-Dog"];
-    const tabs = ["All", "Vegetables", "Sauces", "Meats", "Cheeses"];
+    const allTab = "All";
+    const tabs = [allTab, "Vegetables", "Sauces", "Meats", "Cheeses"];
     const myMap = new Map<string, string[]>();
-    tabs.slice(1).forEach((tab, index) => (
+    tabs.slice(1).forEach((tab) => (
         myMap.set(tab, ["Cheddar",
             "Brie",
             "Mozzarella",
@@ -25,20 +25,7 @@ function Calculator() {
             "Swiss",
             "Ricotta"])
     ));
-    const categories = tabs.slice(1).map(tab => {
-        return (<div className="topping-category-wrapper">
-            <h4 className="category-title">{tab}</h4>
-            <div className="topping-items">
-                {(myMap.get(tab) || []).map(name => (
-                    <div key={name} className="topping-select-item">
-                        <img className="topping-select-item-img" src={notFound} alt="not found"/>
-                        <div className="topping-select-title">{name}</div>
-                        <ItemCounter/>
-                    </div>
-                ))}
-            </div>
-        </div>);
-    })
+    const [selectedTab, setSelectedTab] = useState(allTab);
     return (
         <div className="calculator-wrapper">
             <h2>Your pizza</h2>
@@ -55,11 +42,10 @@ function Calculator() {
                 <StaticSelector list={dough} defaultOption={dough[0]}/>
             </div>
             <div className="toppings-tabs">
-                <StaticSelector list={tabs} defaultOption={tabs[0]} enabled="topping-tab-selected" disabled="topping-tab-default"/>
+                <StaticSelector list={tabs} defaultOption={allTab} enabled="topping-tab-selected"
+                                disabled="topping-tab-default" callback={setSelectedTab}/>
             </div>
-            <div className="select-toppings-section">
-                {categories}
-            </div>
+            <ToppingsSelector allTab={allTab} tabs={tabs} myMap={myMap} selectedTab={selectedTab} />
         </div>
     );
 }
