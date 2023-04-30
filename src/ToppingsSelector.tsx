@@ -7,9 +7,13 @@ interface Props {
     tabs: string[]
     myMap: Map<string, string[]>
     selectedTab: string;
+
+    addTopping(name: string): void
+
+    deleteTopping(name: string): void
 }
 
-function ToppingsSelector({allTab, tabs, myMap, selectedTab}: Props) {
+function ToppingsSelector({allTab, tabs, myMap, selectedTab, addTopping, deleteTopping}: Props) {
     const show = "topping-category-wrapper";
     const hide = "displayNone";
     const categories = tabs.filter(t => t !== allTab).map(tab => {
@@ -20,7 +24,7 @@ function ToppingsSelector({allTab, tabs, myMap, selectedTab}: Props) {
                     <div key={name} className="topping-select-item">
                         <img className="topping-select-item-img" src={notFound} alt="not found"/>
                         <div className="topping-select-title">{name}</div>
-                        <ItemCounter/>
+                        <ItemCounter addTopping={() => addTopping(name)} deleteTopping={() => deleteTopping(name)}/>
                     </div>
                 ))}
             </div>
