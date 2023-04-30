@@ -2,24 +2,18 @@ import React from 'react';
 import './styles/Calculator.scss';
 import ItemCounter from "./ItemCounter";
 import notFound from "./img/not-found.webp"
+import StaticSelector from "./StaticSelector";
 
 function Calculator() {
     const sizeNames = ["Standard size", "Large", "ExtraLarge", "XXLarge"]
-    const sizeOptions = sizeNames.map((sizeName, index) => (
-        <li key={index}>{sizeName}</li>
-    ));
+
     const toppings = ["Domino's sauce", "Mozarella"].map((topping, index) => (
         <li  key={index}>{topping}, </li>
     ));
-    const dough = ["Thick crust", "Thin", "Philadelphia", "Hot-Dog"].map((topping, index) => (
-        <li key={index}>{topping}</li>
-    ));
-    const tabStrings = ["All", "Vegetables", "Sauces", "Meats", "Cheeses"];
-    const tabs = tabStrings.map((topping, index) => (
-        <li key={index}>{topping}</li>
-    ));
+    const dough = ["Thick crust", "Thin", "Philadelphia", "Hot-Dog"];
+    const tabs = ["All", "Vegetables", "Sauces", "Meats", "Cheeses"];
     const myMap = new Map<string, string[]>();
-    tabStrings.slice(1).forEach((tab, index) => (
+    tabs.slice(1).forEach((tab, index) => (
         myMap.set(tab, ["Cheddar",
             "Brie",
             "Mozzarella",
@@ -31,7 +25,7 @@ function Calculator() {
             "Swiss",
             "Ricotta"])
     ));
-    const categories = tabStrings.slice(1).map(tab => {
+    const categories = tabs.slice(1).map(tab => {
         return (<div className="topping-category-wrapper">
             <h4 className="category-title">{tab}</h4>
             <div className="topping-items">
@@ -54,14 +48,14 @@ function Calculator() {
             </div>
             <div className="size-wrapper static-selector-wrapper">
                 <h3>Size</h3>
-                <ol className="row">{sizeOptions}</ol>
+                <StaticSelector list={sizeNames} defaultOption={sizeNames[0]}/>
             </div>
             <div className="dough-wrapper static-selector-wrapper">
                 <h3>Dough</h3>
-                <ol className="row">{dough}</ol>
+                <StaticSelector list={dough} defaultOption={dough[0]}/>
             </div>
             <div className="toppings-tabs">
-                <ol className="row">{tabs}</ol>
+                <StaticSelector list={tabs} defaultOption={tabs[0]} enabled="topping-tab-selected" disabled="topping-tab-default"/>
             </div>
             <div className="select-toppings-section">
                 {categories}

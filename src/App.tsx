@@ -1,4 +1,3 @@
-import React, {forwardRef, useRef} from 'react';
 import Header from './Header';
 import MainBody from './MainBody';
 
