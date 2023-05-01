@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './styles/Calculator.scss';
 import StaticSelector from "./StaticSelector";
 import ToppingsSelector from "./ToppingsSelector";
+import SelectedToppingsList from "./SelectedToppingsList";
 
 function Calculator() {
     const sizeNames = ["Standard size", "Large", "ExtraLarge", "XXLarge"]
@@ -54,14 +55,19 @@ function Calculator() {
         console.log("siblingIndex: " + siblingIndex);
     }
 
+    const newMap = new Map<string, () => void>();
+
+    const toppingsSelectorObj = <ToppingsSelector allTab={allTab} tabs={tabs} tabToItsToppingsMap={myMap}
+                                                  deleteTopping={(x) => deleteTopping(x)}
+                                                  addTopping={(x) => addTopping(x)}
+                                                  map={newMap}
+                                                  selectedTab={selectedTab}/>;
     return (
         <div className="calculator-wrapper">
             <h2>Your pizza</h2>
             <div className="selected-toppings-wrapper">
                 <h3>Your pizza's toppings:</h3>
-                <ul className="row">{toppings.map((topping, index) => (
-                    <li key={index}>{topping}, </li>
-                ))}</ul>
+                <SelectedToppingsList toppings={toppings} callbackMap={newMap}></SelectedToppingsList>
             </div>
             <div className="size-wrapper static-selector-wrapper">
                 <h3>Size</h3>
@@ -75,10 +81,7 @@ function Calculator() {
                 <StaticSelector list={tabs} defaultOption={allTab} enabled="topping-tab-selected"
                                 disabled="topping-tab-default" callback={setSelectedTab}/>
             </div>
-            <ToppingsSelector allTab={allTab} tabs={tabs} myMap={myMap}
-                              deleteTopping={(x) => deleteTopping(x)}
-                              addTopping={(x) => addTopping(x)}
-                              selectedTab={selectedTab}/>
+            {toppingsSelectorObj}
         </div>
     );
 }

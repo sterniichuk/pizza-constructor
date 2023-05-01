@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './styles/Calculator.scss';
 import minusImage from "./img/minus.svg";
 import plusImage from "./img/plus.svg";
@@ -9,9 +9,13 @@ interface Props {
     addTopping(): void
 
     deleteTopping(): void
+
+    map: Map<string, () => void>
+
+    topping: string
 }
 
-function ItemCounter({max = 3, addTopping, deleteTopping}: Props) {
+function ItemCounter({max = 3, addTopping, deleteTopping, map, topping}: Props) {
     const [counter, setCounter] = useState(0);
 
     function add(x: number) {
@@ -31,7 +35,14 @@ function ItemCounter({max = 3, addTopping, deleteTopping}: Props) {
         }
         setCounter(result);
     }
-
+    const setCallback = () =>{
+        console.log("set callback for " + topping)
+        map.set(topping, () => {
+            console.log("fucking invoked " + topping)
+            add(-1)
+        })
+    }
+    setCallback();
     return (
         <div className="item-counter row">
             <div className="sign minus" onClick={() => add(-1)}>

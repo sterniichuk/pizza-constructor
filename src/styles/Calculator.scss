@@ -1,7 +1,6 @@
 @import "App";
 
 .calculator-wrapper {
-  background: aqua;
 }
 
 .calculator-wrapper {
@@ -16,10 +15,18 @@
 .selected-toppings-wrapper {
   h3 {
     font-family: OpenSans-SemiBold, serif;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  ul{
+    margin-left: 1.25rem;
   }
 }
-
+.size-wrapper{
+  margin-top: 1rem;
+}
+.dough-wrapper{
+  margin-top: 0.5rem;
+}
 .static-selector-wrapper {
   h3 {
     font-size: 14px;
@@ -169,4 +176,24 @@
     }
   }
 }
-
+.toppings-tabs{
+  margin-top: 1rem;
+}
+.selected-topping-in-the-list{
+  $height: 1.5rem;
+  height: $height;
+  background: none;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 0.7rem;
+  img{
+    height: 85%;
+    margin-right: 7px;
+    cursor: pointer;
+  }
+  p{
+    font-size:$height * 0.75;
+    font-weight: 400;
+    font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
+  }
+}
