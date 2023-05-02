@@ -1,23 +1,59 @@
+$default-font-size: 18px;
 footer{
   justify-content: space-around;
   padding-block: 3rem;
   background-color: rgb(34, 34, 34);
   ul{
+    max-width: 19rem;
     li{
       color: #fff;
-      font-size: 18px;
+      font-size: $default-font-size;
       line-height: 27px;
       margin-bottom: 13px;
     }
   }
 }
+.mobile-fees{
+  font-size: 60%;
+}
+
+address{
+  font-style: normal;
+}
+
 .important-text{
   font-weight: bold;
 }
-.row-with-image{
+.row-with-image a{
   display: flex;
   img{
     margin-right: 10px;
     height: 100%;
+  }
+}
+
+.location-sing{
+  height: 1rem;
+  align-self: center;
+  margin-right: 8px;
+}
+
+.img-payment-wrapper{
+  margin-top: 1rem;
+  justify-content: space-around;
+}
+
+.leave-review-button{
+  border-radius: 2rem;
+  text-align: center;
+  background: #555;
+  padding-block: 0.35rem;
+  width: 65%;
+  text-overflow: unset;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: $default-font-size * 0.9;
+  &:hover{
+    background: #464646;
   }
 }
