@@ -19,6 +19,7 @@
   }
   ul{
     margin-left: 1.25rem;
+    flex-flow: wrap;
   }
 }
 .size-wrapper{
@@ -58,7 +59,7 @@
   flex-direction: column;
   flex-shrink: 0;
   position: relative;
-  min-height: 0px;
+  min-height: 0;
   z-index: 0;
   cursor: pointer;
   background-color: rgb(255, 255, 255);
@@ -186,14 +187,76 @@
   align-items: center;
   justify-content: space-around;
   margin-right: 0.7rem;
+  margin-bottom: 0.25rem;
   img{
     height: 85%;
-    margin-right: 7px;
+    margin-right: 4px;
     cursor: pointer;
   }
   p{
     font-size:$height * 0.75;
     font-weight: 400;
     font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
+  }
+}
+
+.bottom-section-wrapper{
+  display: grid;
+  margin-right: 1rem;
+}
+
+.sum-wrapper{
+  font-size: 2.5rem;
+  justify-content: end;
+  margin-bottom: 0.7rem;
+}
+
+
+.sum-title{
+  font-size: 65%;
+  align-self: center;
+}
+.sum-value{
+  font-weight: 550;
+}
+.bottom-buttons-pair{
+  width: 50%;
+  justify-content: space-between;
+  justify-self: end;
+}
+
+.bottom-button{
+  height: 2.8rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 48%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  cursor: pointer;
+  p{
+    font-size: 23px;
+  }
+}
+
+.clear-bottom-button{
+  background: rgb(227, 227, 227);
+  p{
+    color: #000;
+  }
+  &:hover{
+    background-color: rgb(204, 200, 200);
+  }
+}
+
+.add-to-cart-bottom-button{
+  background-color: rgb(254, 0, 33);
+  p{
+    color: #fff;
+  }
+  &:hover{
+    background-color: rgb(217, 3, 33);
   }
 }

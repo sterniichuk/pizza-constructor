@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import './styles/Calculator.scss';
+import '../styles/Calculator.scss';
 import StaticSelector from "./StaticSelector";
 import ToppingsSelector from "./ToppingsSelector";
 import SelectedToppingsList from "./SelectedToppingsList";
+import BottomSection from "./BottomSection";
 
 function Calculator() {
     const sizeNames = ["Standard size", "Large", "ExtraLarge", "XXLarge"]
@@ -58,8 +59,8 @@ function Calculator() {
     const newMap = new Map<string, () => void>();
 
     const toppingsSelectorObj = <ToppingsSelector allTab={allTab} tabs={tabs} tabToItsToppingsMap={myMap}
-                                                  deleteTopping={(x) => deleteTopping(x)}
-                                                  addTopping={(x) => addTopping(x)}
+                                                  deleteTopping={(x:string) => deleteTopping(x)}
+                                                  addTopping={(x:string) => addTopping(x)}
                                                   map={newMap}
                                                   selectedTab={selectedTab}/>;
     return (
@@ -82,6 +83,7 @@ function Calculator() {
                                 disabled="topping-tab-default" callback={setSelectedTab}/>
             </div>
             {toppingsSelectorObj}
+            <BottomSection currentSum={180} currency={"uah"}></BottomSection>
         </div>
     );
 }

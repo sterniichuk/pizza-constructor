@@ -1,5 +1,5 @@
 import React from 'react';
-import notFound from "./img/not-found.webp";
+import notFound from "../img/not-found.webp";
 import ItemCounter from "./ItemCounter";
 
 interface Props {

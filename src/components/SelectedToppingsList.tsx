@@ -1,6 +1,6 @@
 import React from 'react';
-import closeInCircle from "./img/cancel.svg";
-import './styles/Calculator.scss';
+import closeInCircle from "../img/cancel.svg";
+import '../styles/Calculator.scss';
 
 interface Props {
     toppings: string[]
@@ -8,26 +8,11 @@ interface Props {
     callbackMap?: Map<string, () => void>
 }
 
-
-function notDefinedCallback(t: string) {
-    console.log("callback of " + t + "is not defined")
-}
-
-function notDefinedCallbackMap(t: string[]): Map<string, () => void> {
-    const map = new Map<string, () => void>()
-    t.forEach(t => map.set(t, () => notDefinedCallback(t)))
-    return map;
-}
-
-
-function SelectedToppingsList({toppings, callbackMap = notDefinedCallbackMap(toppings)}: Props) {
+function SelectedToppingsList({toppings, callbackMap}: Props) {
     function handleClick(topping: string) {
-        const callback = callbackMap?.get(topping);
-        if (callback) {
-            callback();
-        }else {
-            console.log("callback is not defined")
-        }
+        const badValue = () => {console.log("callback in the map is not defined")};
+        const callback = callbackMap?.get(topping) || badValue;
+        callback();
         console.log("invoked deleting of " + topping + " from the list");
     }
 

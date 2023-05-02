@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './styles/Calculator.scss';
+import '../styles/Calculator.scss';
 
 interface Props {
     list: string[]

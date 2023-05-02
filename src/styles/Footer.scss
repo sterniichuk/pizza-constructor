@@ -1,0 +1,23 @@
+footer{
+  justify-content: space-around;
+  padding-block: 3rem;
+  background-color: rgb(34, 34, 34);
+  ul{
+    li{
+      color: #fff;
+      font-size: 18px;
+      line-height: 27px;
+      margin-bottom: 13px;
+    }
+  }
+}
+.important-text{
+  font-weight: bold;
+}
+.row-with-image{
+  display: flex;
+  img{
+    margin-right: 10px;
+    height: 100%;
+  }
+}

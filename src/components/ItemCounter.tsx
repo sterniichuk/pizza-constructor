@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import './styles/Calculator.scss';
-import minusImage from "./img/minus.svg";
-import plusImage from "./img/plus.svg";
+import React, {useState} from 'react';
+import '../styles/Calculator.scss';
+import minusImage from "../img/minus.svg";
+import plusImage from "../img/plus.svg";
 
 interface Props {
     max?: number
