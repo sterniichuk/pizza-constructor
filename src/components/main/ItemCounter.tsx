@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import '../styles/Calculator.scss';
-import minusImage from "../img/minus.svg";
-import plusImage from "../img/plus.svg";
+import '../../styles/Calculator.scss';
+import minusImage from "../../img/minus.svg";
+import plusImage from "../../img/plus.svg";
+import {OrderItemCallback} from "./OrderItemCallback";
 
 interface Props {
     max?: number
@@ -10,7 +11,7 @@ interface Props {
 
     deleteTopping(): void
 
-    map: Map<string, () => void>
+    map: Map<string, OrderItemCallback>
 
     topping: string
 }
@@ -35,13 +36,24 @@ function ItemCounter({max = 3, addTopping, deleteTopping, map, topping}: Props) 
         }
         setCounter(result);
     }
-    const setCallback = () =>{
+
+    const setCallback = () => {
         console.log("set callback for " + topping)
-        map.set(topping, () => {
-            console.log("fucking invoked " + topping)
-            add(-1)
-        })
+        map.set(topping, getOrderItemCallback())
     }
+
+    function getOrderItemCallback(): OrderItemCallback {
+        return {
+            decrementTopping: () => {
+                console.log("fucking invoked " + topping)
+                add(-1)
+            },
+            setValueTopping: (value) => {
+                setCounter(value)
+            }
+        }
+    }
+
     setCallback();
     return (
         <div className="item-counter row">

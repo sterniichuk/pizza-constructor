@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import MainBody from './components/MainBody';
+import MainBody from './components/main/MainBody';
 import Footer from "./components/Footer";
 import React from "react";
 
@@ -8,7 +8,7 @@ function App() {
         <>
             <Header></Header>
             <MainBody/>
-            <Footer></Footer>
+            <Footer/>
         </>
     );
 }

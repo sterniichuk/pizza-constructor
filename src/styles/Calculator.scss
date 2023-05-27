@@ -3,6 +3,10 @@
 .calculator-wrapper {
 }
 
+main {
+  margin-bottom: 4rem;
+}
+
 .calculator-wrapper {
   width: 50vw;
 
@@ -17,17 +21,21 @@
     font-family: OpenSans-SemiBold, serif;
     margin-bottom: 0.8rem;
   }
-  ul{
+
+  ul {
     margin-left: 1.25rem;
     flex-flow: wrap;
   }
 }
-.size-wrapper{
+
+.size-wrapper {
   margin-top: 1rem;
 }
-.dough-wrapper{
+
+.dough-wrapper {
   margin-top: 0.5rem;
 }
+
 .static-selector-wrapper {
   h3 {
     font-size: 14px;
@@ -39,7 +47,8 @@
     align-content: center;
   }
 }
-.default-static-button{
+
+.default-static-button {
   max-width: 200px;
   text-align: center;
   margin-bottom: 7px;
@@ -51,7 +60,8 @@
   flex: 1 1 calc(33% - 14px);
   cursor: pointer;
 }
-.topping-tab-default{
+
+.topping-tab-default {
   border: 0 solid rgb(0, 0, 0);
   box-sizing: border-box;
   display: flex;
@@ -63,7 +73,7 @@
   z-index: 0;
   cursor: pointer;
   background-color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 11px 31px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 11px 31px;
   border-radius: 12px;
   max-width: 200px;
   padding: 20px 10px;
@@ -73,14 +83,15 @@
   margin-bottom: 9px;
   min-width: 143px;
 }
-.generic-selected{
+
+.generic-selected {
   $color: rgb(79, 79, 79);
   background-color: $color;
   color: #fff;
   border-color: $color;
 }
 
-.static-selected{
+.static-selected {
   @extend .default-static-button;
   @extend .generic-selected
 }
@@ -93,7 +104,7 @@
   }
 }
 
-.topping-tab-selected{
+.topping-tab-selected {
   @extend .topping-tab-default;
   @extend .generic-selected;
 }
@@ -115,7 +126,7 @@
   }
 }
 
-.displayNone{
+.displayNone {
   display: none;
 }
 
@@ -167,6 +178,7 @@
     border: 2px solid rgb(190, 190, 190);
     background: #ffffff;
     border-radius: 2rem;
+
     .sign {
       $svg-size: 1.2rem;
       align-items: center;
@@ -177,10 +189,12 @@
     }
   }
 }
-.toppings-tabs{
+
+.toppings-tabs {
   margin-top: 1rem;
 }
-.selected-topping-in-the-list{
+
+.selected-topping-in-the-list {
   $height: 1.5rem;
   height: $height;
   background: none;
@@ -188,44 +202,48 @@
   justify-content: space-around;
   margin-right: 0.7rem;
   margin-bottom: 0.25rem;
-  img{
+
+  img {
     height: 85%;
     margin-right: 4px;
     cursor: pointer;
   }
-  p{
-    font-size:$height * 0.75;
+
+  p {
+    font-size: $height * 0.75;
     font-weight: 400;
     font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
   }
 }
 
-.bottom-section-wrapper{
+.bottom-section-wrapper {
   display: grid;
-  margin-right: 1rem;
+  margin-right: 5%;
 }
 
-.sum-wrapper{
+.sum-wrapper {
   font-size: 2.5rem;
   justify-content: end;
   margin-bottom: 0.7rem;
 }
 
 
-.sum-title{
+.sum-title {
   font-size: 65%;
   align-self: center;
 }
-.sum-value{
+
+.sum-value {
   font-weight: 550;
 }
-.bottom-buttons-pair{
-  width: 50%;
+
+.bottom-buttons-pair {
+  width: 35%;
   justify-content: space-between;
   justify-self: end;
 }
 
-.bottom-button{
+.bottom-button {
   height: 2.8rem;
   border-radius: 2rem;
   display: flex;
@@ -236,27 +254,32 @@
   align-content: center;
   align-items: center;
   cursor: pointer;
-  p{
+
+  p {
     font-size: 23px;
   }
 }
 
-.clear-bottom-button{
+.clear-bottom-button {
   background: rgb(227, 227, 227);
-  p{
+
+  p {
     color: #000;
   }
-  &:hover{
+
+  &:hover {
     background-color: rgb(204, 200, 200);
   }
 }
 
-.add-to-cart-bottom-button{
+.add-to-cart-bottom-button {
   background-color: rgb(254, 0, 33);
-  p{
+
+  p {
     color: #fff;
   }
-  &:hover{
+
+  &:hover {
     background-color: rgb(217, 3, 33);
   }
 }

@@ -1,17 +1,20 @@
 import React from 'react';
-import closeInCircle from "../img/cancel.svg";
-import '../styles/Calculator.scss';
+import closeInCircle from "../../img/cancel.svg";
+import '../../styles/Calculator.scss';
+import {OrderItemCallback} from "./OrderItemCallback";
 
 interface Props {
     toppings: string[]
 
-    callbackMap?: Map<string, () => void>
+    callbackMap?: Map<string, OrderItemCallback>
 }
 
 function SelectedToppingsList({toppings, callbackMap}: Props) {
     function handleClick(topping: string) {
-        const badValue = () => {console.log("callback in the map is not defined")};
-        const callback = callbackMap?.get(topping) || badValue;
+        const badValue = () => {
+            console.log("callback in the map is not defined")
+        };
+        const callback = callbackMap?.get(topping)?.decrementTopping || badValue;
         callback();
         console.log("invoked deleting of " + topping + " from the list");
     }

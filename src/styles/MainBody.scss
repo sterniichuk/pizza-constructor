@@ -1,15 +1,15 @@
 @import "App";
 
-.main-body{
+.image-calculator-pair{
   background: none;
   margin-top: $header-height + 2vh;
   margin-inline: 2rem;
   justify-content: space-around;
-  margin-bottom: 4rem;
+  margin-bottom: 0.5rem;
 }
 
 .pizza-img{
-  width: fit-content;
+  width: 50vw;
   height: fit-content;
 }
 

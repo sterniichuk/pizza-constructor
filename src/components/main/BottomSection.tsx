@@ -1,12 +1,18 @@
 import React from 'react';
-import '../styles/Calculator.scss';
+import '../../styles/Calculator.scss';
 
 interface Props {
     currentSum: number
     currency: string
+    clearAll: () => void;
 }
 
-function BottomSection({currentSum, currency}: Props) {
+function BottomSection({currentSum, currency, clearAll}: Props) {
+    function handleClear() {
+        clearAll();
+        console.log("Clear");
+    }
+
     return (
         <div className="bottom-section-wrapper">
             <div className="sum-wrapper row">
@@ -14,7 +20,7 @@ function BottomSection({currentSum, currency}: Props) {
                 <div className="sum-value">{currentSum} {currency}</div>
             </div>
             <div className="bottom-buttons-pair row">
-                <div className="bottom-button clear-bottom-button">
+                <div className="bottom-button clear-bottom-button" onClick={handleClear}>
                     <p>Clear</p>
                 </div>
                 <div className="bottom-button add-to-cart-bottom-button">
