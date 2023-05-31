@@ -25,10 +25,11 @@ function ToppingsSelector({allTab, tabs, tabToItsToppingsMap, selectedTab, addTo
 
     const show = "topping-category-wrapper";
     const hide = "displayNone";
+    const notAvailableColor = "topping-not-available-select-item";
     const categories = tabs.filter(t => t !== allTab).map(tab => {
         return (<div className={selectedTab === tab || selectedTab === allTab ? show : hide}>
             <div className="topping-items">
-                {(tabToItsToppingsMap.get(tab) || []).map(x => {
+                {(tabToItsToppingsMap.get(tab) || []).map((x: ToppingInfo) => {
                     const name = x.name;
                     const lowerTab = tab.toLowerCase();
                     let photo: JSX.Element;
@@ -38,11 +39,14 @@ function ToppingsSelector({allTab, tabs, tabToItsToppingsMap, selectedTab, addTo
                         const imagePath = `http://localhost:8080/api/v1/topping/download/${lowerTab}/${name}`;
                         photo = <img className="topping-select-item-img" src={imagePath} alt={lowerTab + " " + name}/>
                     }
-                    return <div key={name} className="topping-select-item">
+                    let className = "topping-select-item";
+                    className = x.isAvailable() ? className : className + " " + notAvailableColor;
+                    return <div key={name} className={className}>
                         {photo}
-                        <div className="topping-select-title">{name}</div>
+                        <div className={"topping-select-title"}>{name}</div>
                         <ItemCounter addTopping={() => addTopping(x)}
-                                     map={map} topping={name}
+                                     map={map} topping={x}
+                                     max={x.max}
                                      deleteTopping={() => deleteTopping(x)}/>
                     </div>
                 })}

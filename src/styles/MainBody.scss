@@ -2,10 +2,21 @@
 
 .image-calculator-pair{
   background: none;
-  margin-top: $header-height + 2vh;
+  margin-top: $header-height + 3rem;
   margin-inline: 2rem;
   justify-content: space-around;
   margin-bottom: 0.5rem;
+  display: flex;
+}
+@media (max-width: 730px) {
+  .image-calculator-pair{
+    display: grid;
+
+    justify-items: center;
+    .calculator-wrapper {
+      width: fit-content;
+    }
+  }
 }
 
 .pizza-img{

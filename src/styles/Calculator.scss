@@ -96,6 +96,11 @@ main {
   @extend .generic-selected
 }
 
+.static-not-available {
+  cursor: default;
+  color: rgba(0, 0, 0, 0.62);
+}
+
 .toppings-tabs {
   ol {
     margin-bottom: 31px;
@@ -141,6 +146,8 @@ main {
   margin-inline: auto;
 }
 
+$not-available-color: rgba(0, 0, 0, 0.62);
+
 .topping-select-item {
   $image-height: 70%;
   $item-counter-height: 18%;
@@ -168,6 +175,8 @@ main {
     top: $image-height;
   }
 
+
+
   .item-counter {
     position: absolute;
     bottom: 0;
@@ -187,8 +196,24 @@ main {
       height: $svg-size;
       cursor: pointer;
     }
+
+
+
   }
 }
+.topping-not-available-select-item {
+  color: rgba(0, 0, 0, 0.62);
+  .sign img {
+    cursor: default;
+  }
+  .item-counter{
+    border: 2px solid rgba(190, 190, 190, 0.54);
+  }
+  .topping-select-item-img{
+    opacity: 69%;
+  }
+}
+
 
 .toppings-tabs {
   margin-top: 1rem;

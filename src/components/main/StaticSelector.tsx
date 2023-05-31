@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import '../../styles/Calculator.scss';
+import { ToppingInfo} from "../../data/ToppingInfo";
 
 interface Props {
-    list: string[]
-    defaultOption: string
+    list: ToppingInfo[]
+    defaultOption: ToppingInfo
     enabled?: string
     disabled?: string
-
-    callback?(name: string): void
-
+    notAvailableStyle?: string;
+    callback?(name: ToppingInfo): void
 }
 
 function StaticSelector({
@@ -16,25 +16,35 @@ function StaticSelector({
                             defaultOption,
                             enabled = "static-selected",
                             disabled = "default-static-button",
+                            notAvailableStyle = "static-not-available",
                             callback = () => {
-                            }
+                            },
                         }: Props) {
     const [selected, setSelected] = useState(defaultOption);
 
-    function handleClick(newChoice: string): void {
+    function handleClick(newChoice: ToppingInfo): void {
+        if (!newChoice.isAvailable()) {
+            console.log(newChoice + " is not available")
+            return;
+        }
         setSelected(newChoice);
 
         callback(newChoice);
         console.log(newChoice + " is clicked")
     }
 
-    const options = list.map((name, index) => {
+    const options = list.map((choice, index) => {
+        if(choice.name === selected.name && choice.max !== selected.max){
+            setSelected(defaultOption);
+        }
+        let className = choice.name === selected.name ? enabled : disabled;
+        className = choice.isAvailable() ? className : className + " " + notAvailableStyle
         return (
-            <li className={name === selected ? enabled : disabled}
+            <li className={className}
                 onClick={() => {
-                    handleClick(name)
+                    handleClick(choice)
                 }}
-                key={index}>{name}</li>
+                key={index}>{choice.name}</li>
         );
     });
     return (

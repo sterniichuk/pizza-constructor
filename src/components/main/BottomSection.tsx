@@ -5,12 +5,17 @@ interface Props {
     currentSum: number
     currency: string
     clearAll: () => void;
+    addToCart: () => void;
 }
 
-function BottomSection({currentSum, currency, clearAll}: Props) {
+function BottomSection({currentSum, currency, clearAll, addToCart}: Props) {
     function handleClear() {
         clearAll();
         console.log("Clear");
+    }
+
+    function handleAddToCart(){
+        addToCart()
     }
 
     return (
@@ -23,7 +28,7 @@ function BottomSection({currentSum, currency, clearAll}: Props) {
                 <div className="bottom-button clear-bottom-button" onClick={handleClear}>
                     <p>Clear</p>
                 </div>
-                <div className="bottom-button add-to-cart-bottom-button">
+                <div className="bottom-button add-to-cart-bottom-button" onClick={handleAddToCart}>
                     <p>Add to cart</p>
                 </div>
             </div>

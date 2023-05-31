@@ -9,7 +9,6 @@ export type CartData = {
     clientId : number;
     phoneNumber : number;
     deliveryType : DeliveryType;
-    deliveryIsPaid : number;
     orders : OrderRequest[];
     clientAddress : Address;
     goodsSum : number;
