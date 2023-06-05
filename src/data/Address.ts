@@ -9,10 +9,10 @@ export type Address = {
 }
 export const defaultAddress : Address = {
     city : "Rivne",
-    street : "Nazelazshnosti",
-    houseNumber : "18",
-    apartment : "3",
-    entrance : "1",
-    floor : "1",
-    codeToHouse : "0022",
+    street : "",
+    houseNumber : "",
+    apartment : "",
+    entrance : "",
+    floor : "",
+    codeToHouse : "",
 }

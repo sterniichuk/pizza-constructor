@@ -9,26 +9,29 @@ import {ToppingInfo} from "../../data/ToppingInfo";
 
 interface Props {
     max?: number
+    min?: number
+    initial?: number
 
     addTopping(): void
 
     deleteTopping(): void
 
-    map: Map<string, OrderItemCallback>
+    map?: Map<string, OrderItemCallback>
 
     topping: ToppingInfo
 }
 
 console.log("out")
-function ItemCounter({max = 3, addTopping, deleteTopping, map, topping}: Props) {
-    const [counter, setCounter] = useState(0);
+
+function ItemCounter({max = 3, min = 0, initial = 0, addTopping, deleteTopping, map = undefined, topping}: Props) {
+    const [counter, setCounter] = useState(initial);
 
     function add(x: number) {
-        if(!topping.isAvailable()){
+        if (!topping.isAvailable()) {
             return;
         }
         const result = counter + x;
-        if (result > max || result < 0) {
+        if (result > max || result < min) {
             return;
         }
         switch (x) {
@@ -45,7 +48,7 @@ function ItemCounter({max = 3, addTopping, deleteTopping, map, topping}: Props) 
     }
 
     const setCallback = () => {
-        map.set(topping.name, getOrderItemCallback())
+        map?.set(topping.name, getOrderItemCallback())
     }
 
     function getOrderItemCallback(): OrderItemCallback {
@@ -64,11 +67,11 @@ function ItemCounter({max = 3, addTopping, deleteTopping, map, topping}: Props) 
     return (
         <div className="item-counter row">
             <div className="sign minus" onClick={() => add(-1)}>
-                <img className="sign-image" src={topping.isAvailable()? minusImage : minusInactiveImage} alt="minus"/>
+                <img className="sign-image" src={topping.isAvailable() ? minusImage : minusInactiveImage} alt="minus"/>
             </div>
             <p>{counter}</p>
             <div className="sign plus" onClick={() => add(1)}>
-                <img className="sign-image" src={topping.isAvailable()? plusImage : plusInactiveImage} alt="plus"/>
+                <img className="sign-image" src={topping.isAvailable() ? plusImage : plusInactiveImage} alt="plus"/>
             </div>
         </div>
     );

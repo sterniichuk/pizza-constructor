@@ -5,6 +5,9 @@ import Footer from "./components/Footer";
 import {CartResponse, defaultCart} from "./data/OrderRequest";
 import {getParams} from "./App";
 import {useNavigate} from 'react-router-dom';
+import {defaultAddress} from "./data/Address";
+import {PropsState} from "./data/PropsState";
+
 interface Props {
     clientId?: number
 }
@@ -56,10 +59,12 @@ function CartPage({clientId = -1}: Props) {
                 });
         }
     }, [navigate]);
+    const [address, setAddress] = useState(defaultAddress);
+    const cartProps: PropsState<CartResponse> = {value: cartResponse, setValue: setCartResponse};
     return (
         <>
             <Header clientId={clientIdRef.current} cartSum={cartResponse.cartSum}></Header>
-            <Cart/>
+            <Cart address={address} setAddress={setAddress} cart={cartProps}/>
             <Footer/>
         </>
     );

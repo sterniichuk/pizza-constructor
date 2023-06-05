@@ -11,7 +11,15 @@ $header-height: 5rem;
   text-decoration: none;
   box-sizing: border-box;
 }
+$not-available-color: rgba(0, 0, 0, 0.62);
 
 a, a:visited, a:hover, a:active {
   color: inherit;
+}
+
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: url("./fonts/OpenSans-Regular.ttf") format("truetype");
+  /* Add additional font formats and sources for cross-browser compatibility */
+  /* e.g., woff, woff2, eot, svg */
 }
