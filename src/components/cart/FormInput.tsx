@@ -6,9 +6,22 @@ interface Props {
     title: string
     placeholder?: string
     important?: boolean
+    type?: string
+
+    errorMessage?: string
+    showDefaultError?: boolean
 }
 
-function FormInput({setInput, defaultValue = '', title, placeholder = `Enter ${title.toLowerCase()}`, important = false}: Props) {
+function FormInput({
+                       type = "text",
+                       setInput,
+                       defaultValue = '',
+                       title,
+                       placeholder = `Enter ${title.toLowerCase()}`,
+                       important = false,
+                       errorMessage = "",
+                       showDefaultError = true
+                   }: Props) {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInput(event.target.value);
     };
@@ -16,8 +29,10 @@ function FormInput({setInput, defaultValue = '', title, placeholder = `Enter ${t
     return (
         <div className="input-wrapper">
             <p>{important ? `${title}*` : title}</p>
-            <input required={important} type="text" value={defaultValue} placeholder={placeholder} onChange={handleInputChange}/>
-            <span className="warning">Required field</span>
+            <input required={important} type={type} value={defaultValue} placeholder={placeholder}
+                   onChange={handleInputChange}/>
+            {showDefaultError? <span className="warning">Required field</span> : null}
+            {errorMessage?.length > 0? <span className={"warning-active"}>{errorMessage}</span> : null}
         </div>
     );
 }

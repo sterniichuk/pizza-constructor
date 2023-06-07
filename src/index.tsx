@@ -4,7 +4,6 @@ import './styles/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import CartPage from "./CartPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,11 +14,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-    },
-    {
-        path: "/checkout",
-        element: <CartPage/>,
-    },
+    }
 ]);
 
 root.render(

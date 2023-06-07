@@ -20,6 +20,7 @@ $default-header-font-size: 1rem;
 .company-name {
   font-size: 1.5rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .checkout-button, .login-button,.cart-sum {
@@ -68,6 +69,7 @@ $default-header-font-size: 1rem;
   .checkout-button {
     background: none;
     font-weight: bold;
+    color: #000;
 
     &:hover {
       transform: scale(1.1);
@@ -83,4 +85,7 @@ $default-header-font-size: 1rem;
   justify-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
+  .checkout-button{
+    color: #fff;
+  }
 }

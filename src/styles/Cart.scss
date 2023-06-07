@@ -1,6 +1,5 @@
 @import "App";
 
-$my-font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
 
 .cart-body {
   margin-top: $header-height;
@@ -75,7 +74,7 @@ $my-font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
   justify-content: space-between;
   align-items: flex-start;
   padding-inline: 1.5rem;
-  padding-top: 2rem;
+  padding-block: 2rem;
 }
 
 .order-list-wrapper {
@@ -211,6 +210,25 @@ $my-font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
     text-align: left;
     font-size: 24px;
   }
+
+  .calculate-delivery-price {
+    background-color: rgba(186, 186, 186, 0.91);
+    font-family: $my-font-family;
+    border-color: transparent;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-top: 1rem;
+    padding-block: 6px;
+    padding-inline: 18%;
+    cursor: initial;
+  }
+
+  .calculate-delivery-price-active {
+    cursor: pointer;
+    background-color: rgb(254, 0, 33)
+  }
+
 }
 
 .input-wrapper {
@@ -255,8 +273,128 @@ $my-font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
     color: red;
     display: none; /* Hide the warning text by default */
   }
+  .warning-active {
+    font-size: 12px;
+    line-height: 18px;
+    color: red;
+  }
 
   input:invalid + .warning {
     display: block; /* Display the warning when the input is invalid (empty) */
+  }
+}
+
+.location-sign {
+  height: 1.5rem;
+
+  svg {
+    height: 80%;
+  }
+}
+
+.dropdown-select-city {
+  display: flex;
+}
+
+.carry-out-header {
+  display: flex;
+  margin-bottom: 32px;
+  align-items: center;
+  gap: 0.5rem;
+
+  .delivery-form-header {
+    margin-bottom: 0;
+  }
+}
+
+.dropdown-select {
+  width: 100%;
+
+  select {
+    display: block;
+    width: 100%;
+    border-width: 0 0 1px;
+    border-top-style: initial;
+    border-right-style: initial;
+    border-left-style: initial;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-image: initial;
+    text-align: left;
+    height: 40px;
+    font-size: 18px;
+    line-height: 27px;
+    box-sizing: border-box;
+    padding: 0;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(186, 186, 186);
+    background-color: transparent;
+    overflow: visible;
+  }
+}
+
+.cart-bottom-menu {
+  margin-bottom: 4rem;
+
+  .bottom-price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+
+    .goods-info {
+      font-family: $my-font-family;
+      font-size: 18px;
+      line-height: 27px;
+      align-self: flex-end;
+      color: rgb(0, 0, 0);
+      margin-bottom: 20px;
+    }
+
+    .total-sum-info {
+      display: flex;
+
+      .total-sum-title {
+        font-family: $my-font-family;
+        line-height: 36px;
+        font-weight: 400;
+        box-sizing: border-box;
+        display: inline-block;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        font-size: 24px;
+      }
+
+      .total-sum-value {
+        color: rgb(254, 0, 33);
+        line-height: 27px;
+        font-family: $my-font-family;
+        font-size: 36px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .cart-bottom-button-pair {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: 1rem;
+
+    .cart-bottom-button {
+      width: 23%;
+      font-size: 16px;
+      line-height: 24px;
+      padding-block: 28px;
+      border-color: transparent;
+      background-color: rgb(227, 227, 227);
+    }
+
+    .cart-bottom-button-red {
+      color: #fff;
+      background-color: rgb(254, 0, 33);
+    }
   }
 }

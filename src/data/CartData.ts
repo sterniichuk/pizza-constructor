@@ -5,9 +5,8 @@ export enum DeliveryType {
     Delivery, CarryOut
 }
 
-export type CartData = {
-    clientId: number;
-    phoneNumber: number;
+export type CheckoutRequest = {
+    phoneNumber: string;
     deliveryType: DeliveryType;
     orders: OrderRequest[];
     clientAddress: Address;
@@ -16,7 +15,6 @@ export type CartData = {
 }
 
 export type ChangeAmountRequest = {
-    clientId: number;
     orderId: number,
     isPositiveChange: boolean
 }

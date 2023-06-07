@@ -27,7 +27,8 @@ function ToppingsSelector({allTab, tabs, tabToItsToppingsMap, selectedTab, addTo
     const hide = "displayNone";
     const notAvailableColor = "topping-not-available-select-item";
     const categories = tabs.filter(t => t !== allTab).map(tab => {
-        return (<div className={selectedTab === tab || selectedTab === allTab ? show : hide}>
+        return (<div key={"topping-category-wrapper: " + tab} className={selectedTab === tab || selectedTab === allTab ? show : hide}>
+            <h4 className="category-title">{tab}</h4>
             <div key={"topping-items: " + tab} className="topping-items">
                 {(tabToItsToppingsMap.get(tab) || []).map((x: ToppingInfo) => {
                     const name = x.name;
@@ -51,7 +52,6 @@ function ToppingsSelector({allTab, tabs, tabToItsToppingsMap, selectedTab, addTo
                     </div>
                 })}
             </div>
-            <h4 className="category-title">{tab}</h4>
         </div>);
     })
     return (

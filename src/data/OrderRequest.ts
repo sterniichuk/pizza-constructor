@@ -1,11 +1,9 @@
 export type OrderRequest = {
-    clientId: number
     size: string;
     dough: string;
     toppings: string[];
 }
 export type OrderResponse = {
-    clientId: number;
     orderId: number;
     cartSum: number;
 };
@@ -30,13 +28,21 @@ export type OrderDetails = {
 }
 
 export type CartResponse = {
-    clientId: number;
     cartSum: number;
     orders: Order[]
 }
 
+export type CalculateWithDeliveryResponse = {
+    goodsPrice: number,
+    totalSum: number
+}
+export const defaultSum: CalculateWithDeliveryResponse = {
+    goodsPrice: 0,
+    totalSum: 0
+}
+
+
 export const defaultCart:CartResponse = {
-    clientId:-1,
     cartSum: 0,
     orders: [],
 }

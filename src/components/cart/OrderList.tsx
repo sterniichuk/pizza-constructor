@@ -9,14 +9,16 @@ import {PropsState} from "../../data/PropsState";
 
 interface Props {
     cart: PropsState<CartResponse>
+    token?: string
 }
 
-function changeAmountRequest(body: ChangeAmountRequest): Promise<CartResponse> {
+function changeAmountRequest(body: ChangeAmountRequest, token: string): Promise<CartResponse> {
     const url = `http://localhost:8080/api/v1/cart/change-amount`;
     return fetch(url, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
+            Authorization: token
         },
         body: JSON.stringify(body),
     }).then(response => {
@@ -32,12 +34,38 @@ function changeAmountRequest(body: ChangeAmountRequest): Promise<CartResponse> {
     })
 }
 
-function OrderList({cart}: Props) {
+function deleteOrderRequest(token: string, orderId: number): Promise<CartResponse> {
+    const url = `http://localhost:8080/api/v1/cart/delete-order?orderId=${orderId}`;
+    return fetch(url, {
+        method: "DELETE",
+        headers: {
+            Authorization: token
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to get cart");
+        }
+        return response.json();
+    }).then(data => {
+        return data as CartResponse;
+    }).catch(error => {
+        console.error("Error:", error);
+        throw error;
+    })
+}
+
+function OrderList({cart, token = ""}: Props) {
     function changeAmountOnDiff(orderId: number, diff: number) {
-        changeAmountRequest({clientId: cart.value.clientId, orderId: orderId, isPositiveChange: diff > 0})
+        changeAmountRequest({orderId: orderId, isPositiveChange: diff > 0}, token)
             .then(newCart => {
                 cart.setValue(() => newCart);
-                return null;
+            })
+    }
+
+    function deleteOrder(orderId: number) {
+        deleteOrderRequest(token, orderId)
+            .then(newCart => {
+                cart.setValue(() => newCart);
             })
     }
 
@@ -62,7 +90,7 @@ function OrderList({cart}: Props) {
                                          deleteTopping={() => changeAmountOnDiff(o.orderId, -1)}
                                          topping={topping}/>
                             <p className="price-of-order">{o.price} uah</p>
-                            <div className="delete-order" onClick={() => changeAmountOnDiff(o.orderId, -1)}>
+                            <div className="delete-order" onClick={() => deleteOrder(o.orderId)}>
                                 <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" height="17"
                                      width="17">
                                     <g fill="#7E7E7E">

@@ -6,14 +6,15 @@ import {PropsState} from "../../data/PropsState";
 interface Props {
     value: number
     cart: PropsState<CartResponse>
+    token:string
 }
 
-function OrderListWrapper({value, cart}: Props) {
+function OrderListWrapper({value, cart, token = ""}: Props) {
     return (
         <div className={"order-list-wrapper"}>
             <h3 className={"your-order-title"}>Your order</h3>
             <p className={"minimal-price-attention"}>Minimal price for delivery {value} UAH</p>
-            <OrderList cart={cart}/>
+            <OrderList token={token} cart={cart}/>
         </div>
     );
 }

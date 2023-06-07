@@ -197,14 +197,19 @@ $title-height: 100% - $item-counter-height - $image-height;
 }
 .topping-not-available-select-item {
   color: $not-available-color;
+  .topping-select-item-img{
+    opacity: 69%;
+  }
+  .sign{
+    cursor: initial;
+  }
 }
 
 .item-counter{
   border: 2px solid rgba(190, 190, 190, 0.54);
 }
-.topping-select-item-img{
-  opacity: 69%;
-}
+
+
 
 
 .toppings-tabs {

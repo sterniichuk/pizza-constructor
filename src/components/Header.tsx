@@ -1,55 +1,69 @@
-import React, {} from 'react';
+import React from 'react';
 import '../styles/Header.scss';
 import cart from "../img/cart.svg"
-import {Link} from "react-router-dom";
+import {PropsState} from "../data/PropsState";
 
 interface Props {
     cartSum: number
-    clientId?: number
+    backToMain: () => void;
+    goToCheckout: () => void;
+    showLogin: PropsState<boolean>
+    tokenProps: PropsState<string>
 }
 
 
-function Header({cartSum, clientId = -1}: Props) {
+function Header({cartSum, showLogin, backToMain, goToCheckout, tokenProps}: Props) {
+
+    function flipFlag() {
+        showLogin.setValue((x) => !x);
+    }
+
+    const loggedIn = tokenProps.value.length > 0;
+    const loginButton = <button className="login-button" onClick={flipFlag}>
+        Login
+    </button>;
+
+    function out() {
+        tokenProps.setValue(() => "");
+    }
+
+    const outButton = <button className="login-button" onClick={out}>
+        Out
+    </button>;
+    const button = loggedIn ? outButton : loginButton;
     return (
-        <>
-            <header className="sticky">
-                <div className="left-header row">
-                    <Link to={`/?clientId=${clientId}&cartSum=${cartSum}`} className="company-name">
-                        Mr. Silver
-                    </Link>
-                    <div className="left-header-buttons-wrapper row">
-                        <Link to={`/?clientId=${clientId}&cartSum=${cartSum}`} className="checkout-button">
-                            Promo
-                        </Link>
-                        <Link to={`/?clientId=${clientId}&cartSum=${cartSum}`} className="checkout-button">
-                            Pizza
-                        </Link>
-                        <Link to={`/?clientId=${clientId}&cartSum=${cartSum}`} className="checkout-button">
-                            Drinks
-                        </Link>
-                        <Link to={`/?clientId=${clientId}&cartSum=${cartSum}`} className="checkout-button">
-                            Dessert
-                        </Link>
+        <header className="sticky">
+            <div className="left-header row">
+                <div onClick={backToMain} className="company-name">
+                    Mr. Silver
+                </div>
+                <div className="left-header-buttons-wrapper row">
+                    <div onClick={backToMain} className="checkout-button">
+                        Promo
+                    </div>
+                    <div onClick={backToMain} className="checkout-button">
+                        Pizza
+                    </div>
+                    <div onClick={backToMain} className="checkout-button">
+                        Drinks
+                    </div>
+                    <div onClick={backToMain} className="checkout-button">
+                        Dessert
                     </div>
                 </div>
+            </div>
 
-                <div className="right-header-buttons">
-                    <button className={"cart-sum"}>
-                        <img src={cart} alt="cart"/>
-                        <p>{cartSum} uah</p>
-                    </button>
-                    <Link className="checkout-button" to={{
-                        pathname: "/checkout",
-                        search: `?clientId=${clientId}`,
-                    }}>
-                        Checkout
-                    </Link>
-                    <button className="login-button">
-                        Login
-                    </button>
+            <div className="right-header-buttons">
+                <button className={"cart-sum"}>
+                    <img src={cart} alt="cart"/>
+                    <p>{cartSum} uah</p>
+                </button>
+                <div className="checkout-button" onClick={goToCheckout}>
+                    Checkout
                 </div>
-            </header>
-        </>
+                {button}
+            </div>
+        </header>
     );
 }
 

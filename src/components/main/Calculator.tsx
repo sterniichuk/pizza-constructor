@@ -12,11 +12,12 @@ import {
 } from "../../data/ToppingInfo";
 import {OrderItemCallback} from "./OrderItemCallback";
 import {OrderRequest} from "../../data/OrderRequest";
+import {PropsState} from "../../data/PropsState";
 
 
 interface Props {
     setCurrentSum: (x: (x: number) => number) => void;
-    setOrder: (x: (x: OrderRequest) => OrderRequest) => void;
+    order: PropsState<OrderRequest>
     toppings: string[]
     setToppings: (x: string[]) => void
     callbackMap: Map<string, OrderItemCallback>
@@ -40,7 +41,8 @@ function fetchData<T>(link: string, consumer: (data: T) => void) {
 }
 
 
-function Calculator({setCurrentSum, setToppings, toppings, callbackMap, setOrder}: Props) {
+function Calculator({setCurrentSum, setToppings, toppings, callbackMap, order}: Props) {
+    const setOrder = order.setValue;
     const myMap = new Map<string, ToppingInfo[]>();
     const [sizeToppings, setSizeToppings] = useState<ToppingInfo[]>(toDefault(["Standard size", "Large", "ExtraLarge", "XXLarge"]));
     const [doughToppings, setDoughToppings] = useState<ToppingInfo[]>(toDefault(["Thick crust", "Thin", "Philadelphia", "Hot-Dog"]));
@@ -139,6 +141,16 @@ function Calculator({setCurrentSum, setToppings, toppings, callbackMap, setOrder
     const sizeDefault = getAvailable(sizeToppings);
     const doughDefault = getAvailable(doughToppings);
 
+    useEffect(() => {
+        if (order.value.size === "") {
+            setOrder(o => ({...o, size: sizeDefault.name}))
+        }
+    }, [order, sizeDefault, setOrder])
+    useEffect(() => {
+        if (order.value.dough === "") {
+            setOrder(o => ({...o, dough: doughDefault.name}))
+        }
+    }, [order, doughDefault, setOrder])
     return (
         <div className="calculator-wrapper">
             <h2>Your pizza</h2>

@@ -16,6 +16,9 @@ $not-available-color: rgba(0, 0, 0, 0.62);
 a, a:visited, a:hover, a:active {
   color: inherit;
 }
+body{
+  position: relative;
+}
 
 @font-face {
   font-family: "OpenSans-Regular";
@@ -23,3 +26,4 @@ a, a:visited, a:hover, a:active {
   /* Add additional font formats and sources for cross-browser compatibility */
   /* e.g., woff, woff2, eot, svg */
 }
+$my-font-family: OpenSans-Regular, "Times New Roman", Arial, serif;
