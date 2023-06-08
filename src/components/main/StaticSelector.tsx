@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../../styles/Calculator.scss';
 import { ToppingInfo} from "../../data/ToppingInfo";
 
-interface Props {
+export interface PropsS {
     list: ToppingInfo[]
     defaultOption: ToppingInfo
     enabled?: string
@@ -19,7 +19,7 @@ function StaticSelector({
                             notAvailableStyle = "static-not-available",
                             callback = () => {
                             },
-                        }: Props) {
+                        }: PropsS) {
     const [selected, setSelected] = useState(defaultOption);
 
     function handleClick(newChoice: ToppingInfo): void {

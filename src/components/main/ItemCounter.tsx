@@ -7,7 +7,7 @@ import plusInactiveImage from "../../img/plus_inactive.svg";
 import {OrderItemCallback} from "./OrderItemCallback";
 import {ToppingInfo} from "../../data/ToppingInfo";
 
-interface Props {
+export interface PropsI {
     max?: number
     min?: number
     initial?: number
@@ -23,7 +23,7 @@ interface Props {
 
 console.log("out")
 
-function ItemCounter({max = 3, min = 0, initial = 0, addTopping, deleteTopping, map = undefined, topping}: Props) {
+function ItemCounter({max = 3, min = 0, initial = 0, addTopping, deleteTopping, map = undefined, topping}: PropsI) {
     const [counter, setCounter] = useState(initial);
 
     function add(x: number) {
@@ -54,7 +54,6 @@ function ItemCounter({max = 3, min = 0, initial = 0, addTopping, deleteTopping, 
     function getOrderItemCallback(): OrderItemCallback {
         return {
             decrementTopping: () => {
-                console.log("fucking invoked " + topping)
                 add(-1)
             },
             setValueTopping: (value) => {

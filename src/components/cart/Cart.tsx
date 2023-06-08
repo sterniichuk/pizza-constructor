@@ -234,22 +234,24 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
 
     const [time, setTime] = useState(0);
     useEffect(() => {
-        if(cart.value.orders.length === 0){
+        if (cart.value.orders.length === 0) {
             return;
         }
-        function findOrderToWait(orders: Order[]){
+
+        function findOrderToWait(orders: Order[]) {
             for (let i = 0; i < orders.length; i++) {
                 const x = orders[i];
                 console.log(x);
-                if((x.state > OrderState.STORED && x.state < OrderState.ORDER_DONE)){
+                if ((x.state > OrderState.STORED && x.state < OrderState.DELIVERED)) {
                     return true;
                 }
             }
             return false;
         }
-        if (time % 1000 === 0) {
+
+        if (time % 10 === 0) {
             console.log("10 sec");
-            const find:boolean = findOrderToWait(cart.value.orders)
+            const find: boolean = findOrderToWait(cart.value.orders)
             if (find !== undefined) {
                 console.log("found working order");
                 const fetchData = async () => {
@@ -268,15 +270,10 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
                     }
                 };
                 fetchData().then(r => console.log(r));
-                // const interval = setInterval(fetchData, 5000);
-                // return () => {
-                //     // Clean up the interval when the component unmounts
-                //     clearInterval(interval);
-                // };
             }
         }
     }, [cart, token, time]);
-    const timer = time !== 0? <Timer time={({value: time, setValue: setTime})}></Timer> : null;
+    const timer = time !== 0 ? <Timer time={({value: time, setValue: setTime})}></Timer> : null;
     return (
         <div className="cart-body">
             <h1 className={"cart-title"}>To cart</h1>
