@@ -6,9 +6,16 @@ import BottomMenu from "./BottomMenu";
 import '../../styles/Cart.scss';
 import {DeliveryType} from "../../data/CartData";
 import {Address, defaultLocation1, defaultLocations, RestaurantLocation} from "../../data/Address";
-import {CalculateWithDeliveryResponse, CartResponse, defaultSum} from "../../data/OrderRequest";
+import {
+    CalculateWithDeliveryResponse,
+    CartResponse,
+    defaultSum, Order,
+    OrderState,
+    TimeToWaitResponse
+} from "../../data/OrderRequest";
 import {PropsState} from "../../data/PropsState";
 import CarryOutForm from "./CarryOutFrom";
+import Timer from "./Timer";
 
 
 interface Props {
@@ -31,7 +38,7 @@ function getMinimum(): Promise<number> {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error("Failed to get cart");
+                throw new Error("Failed to getMinimum");
             }
             return response.text();
         })
@@ -69,6 +76,77 @@ function getTotalPriceWithDelivery(token: string, address: Address): Promise<Cal
         })
 }
 
+function getWaitingTime(token: string): Promise<TimeToWaitResponse> {
+    const url = `http://localhost:8080/api/v1/cart/check-status`;
+    return fetch(url, {
+        method: "GET",
+        headers: {
+            Authorization: token
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("getWaitingTime");
+            }
+            return response.json();
+        })
+        .then(data => {
+            return data as TimeToWaitResponse;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            throw error;
+        })
+}
+
+function checkoutDelivery(token: string, address: Address): Promise<CartResponse> {
+    const url = `http://localhost:8080/api/v1/cart/checkout/delivery`;
+    return fetch(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+        },
+        body: JSON.stringify(address),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to checkoutDelivery");
+            }
+            return response.json();
+        })
+        .then(data => {
+            return data as CartResponse;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            throw error;
+        })
+}
+
+function checkoutCarryOut(token: string): Promise<CartResponse> {
+    const url = `http://localhost:8080/api/v1/cart/checkout/carryout`;
+    return fetch(url, {
+        method: "PUT",
+        headers: {
+            Authorization: token
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to checkoutCarryOut");
+            }
+            return response.json();
+        })
+        .then(data => {
+            return data as CartResponse;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            throw error;
+        })
+}
+
 function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Props) {
     const [deliveryType, setDeliveryType] = useState(DeliveryType.CarryOut);
     const [cartState, setCartState] = useState(CartState.CHECKOUT);
@@ -90,7 +168,7 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
     const [sum, setSum] = useState(defaultSum);
     const goodsPrice = Math.max(cart.value.cartSum, sum.goodsPrice);
     const totalSum = Math.max(cart.value.cartSum, sum.totalSum);
-    const orderListIsEmpty = "Order list is empty";
+    const orderListIsEmpty = "Nothing to pay for:(";
     const initError = goodsPrice === 0 ? orderListIsEmpty : "";
     const [errorMessage, setErrorMessage] = useState(initError);
     useEffect(() => {
@@ -138,15 +216,77 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
         }
     }, [deliveryType, cart, isValidAddress])
 
+    function checkout() {
+        if (goodsPrice <= 0) {
+            return;
+        }
+        let cartResponsePromise: Promise<CartResponse>;
+        if (deliveryType === DeliveryType.Delivery) {
+            cartResponsePromise = checkoutDelivery(token, address);
+        } else {
+            cartResponsePromise = checkoutCarryOut(token);
+        }
+        cartResponsePromise
+            .then(newCart => {
+                cart.setValue(() => newCart);
+            })
+    }
+
+    const [time, setTime] = useState(0);
+    useEffect(() => {
+        if(cart.value.orders.length === 0){
+            return;
+        }
+        function findOrderToWait(orders: Order[]){
+            for (let i = 0; i < orders.length; i++) {
+                const x = orders[i];
+                console.log(x);
+                if((x.state > OrderState.STORED && x.state < OrderState.ORDER_DONE)){
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (time % 1000 === 0) {
+            console.log("10 sec");
+            const find:boolean = findOrderToWait(cart.value.orders)
+            if (find !== undefined) {
+                console.log("found working order");
+                const fetchData = async () => {
+                    try {
+                        const response = await getWaitingTime(token);
+                        const data = await response;
+                        if (data.seconds === 0 && time === 0) {
+                            return;
+                        }
+                        setTime(data.seconds);
+                        cart.setValue(() => response.cart);
+                        return data.seconds;
+                    } catch (error) {
+                        console.error('Error fetching data:', error);
+                        return -1;
+                    }
+                };
+                fetchData().then(r => console.log(r));
+                // const interval = setInterval(fetchData, 5000);
+                // return () => {
+                //     // Clean up the interval when the component unmounts
+                //     clearInterval(interval);
+                // };
+            }
+        }
+    }, [cart, token, time]);
+    const timer = time !== 0? <Timer time={({value: time, setValue: setTime})}></Timer> : null;
     return (
         <div className="cart-body">
             <h1 className={"cart-title"}>To cart</h1>
             <SwitchDeliveryType deliveryType={deliveryType} setDeliveryType={setDeliveryType}/>
+            {timer}
             <div className="order-list-and-address-wrapper">
                 {formOfGettingOrder}
                 <OrderListWrapper token={token} cart={cart} value={minimalPrice}/>
             </div>
-            <BottomMenu error={({value: errorMessage, setValue: setErrorMessage})}
+            <BottomMenu checkout={checkout} error={({value: errorMessage, setValue: setErrorMessage})}
                         calculate={calculateTotalSumWithDelivery} cartStateProps={cartStateProps} token={token}
                         backToMain={backToMain} goodsPrice={goodsPrice}
                         totalPriceWithDelivery={totalSum}/>

@@ -123,6 +123,7 @@
     height: 100%;
   }
 }
+$my-red: rgb(254, 0, 33);
 
 .order-in-cart-list {
   box-sizing: border-box;
@@ -138,6 +139,40 @@
 
     .info {
       height: fit-content;
+
+      .first-info-row{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 10%;
+
+        .status-wrapper{
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .black-color{
+          color: #000;
+        }
+
+        .red-color{
+          color: $my-red;
+        }
+
+        .yellow-color{
+          color: #e4af60;
+        }
+
+        .green-color{
+          color: #9be460;
+        }
+
+      }
 
       .order-title {
         font-family: $my-font-family;
@@ -273,6 +308,7 @@
     color: red;
     display: none; /* Hide the warning text by default */
   }
+
   .warning-active {
     font-size: 12px;
     line-height: 18px;
@@ -333,6 +369,7 @@
     overflow: visible;
   }
 }
+$margin-button:1rem;
 
 .cart-bottom-menu {
   margin-bottom: 4rem;
@@ -381,7 +418,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 1rem;
+    margin-inline: $margin-button;
 
     .cart-bottom-button {
       width: 23%;
@@ -392,9 +429,33 @@
       background-color: rgb(227, 227, 227);
     }
 
+
     .cart-bottom-button-red {
       color: #fff;
       background-color: rgb(254, 0, 33);
     }
   }
+}
+.buttons-and-warning-wrapper{
+  .warning-on-red-button {
+    display: flex;
+    color: rgb(254, 0, 33);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-right: $margin-button;
+    font-family: $my-font-family;
+    font-size: 0.9rem;
+  }
+}
+
+.timer{
+  font-family: $my-font-family;
+  display: flex;
+  justify-content: end;
+  margin-top: 2rem;
+  font-size: 25px;
+  margin-right: $margin-button;
 }

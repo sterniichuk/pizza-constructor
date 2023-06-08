@@ -11,6 +11,7 @@ interface Props {
     cartStateProps: PropsState<CartState>
     error: PropsState<string>
     calculate: () => void
+    checkout: () => void
 }
 
 function BottomMenu({
@@ -19,10 +20,12 @@ function BottomMenu({
                         totalPriceWithDelivery = goodsPrice,
                         backToMain,
                         calculate,
-                        error
+                        error,
+                        checkout
                     }: Props) {
+
     const checkoutButton = <button
-        className={"cart-bottom-button cart-bottom-button-red bottom-button"}>Checkout</button>;
+        className={"cart-bottom-button cart-bottom-button-red bottom-button"} onClick={checkout}>Checkout</button>;
     const calculateButton = <button
         className={"cart-bottom-button cart-bottom-button-red bottom-button"} onClick={calculate}>Calculate</button>;
     const redButton = cartStateProps.value === CartState.CHECKOUT ? checkoutButton : calculateButton;
@@ -39,10 +42,12 @@ function BottomMenu({
                 <p className={"goods-info"}>Goods worth: {goodsPrice}</p>
                 {totalSum}
             </div>
-            <div className="cart-bottom-button-pair">
-                <div className={"cart-bottom-button bottom-button"} onClick={backToMain}>Return to menu</div>
-                <span className="warning-active">{error.value}</span>
-                {redButton}
+            <div className="buttons-and-warning-wrapper">
+                <span className="warning-on-red-button">{error.value}</span>
+                <div className="cart-bottom-button-pair">
+                    <div className={"cart-bottom-button bottom-button"} onClick={backToMain}>Return to menu</div>
+                    {redButton}
+                </div>
             </div>
         </div>
     );

@@ -9,14 +9,20 @@ export type OrderResponse = {
 };
 
 export enum OrderState {
-    RECEIVED, COOKING, DONE, DELIVERING, DELIVERED
+    STORED = 1,
+    COOKING = 2,
+    COOKING_DONE = 3,
+    DELIVERING = 4,
+    WAITING_FOR_CLIENT = 5,
+    DELIVERED = 6,
+    ORDER_DONE = 7
 }
 
 export type Order = {
     orderId: number,
     price: number,
     amount: number
-    isPaid: number
+    paid: number
     state: OrderState
     data: OrderDetails
 }
@@ -32,6 +38,12 @@ export type CartResponse = {
     orders: Order[]
 }
 
+export type TimeToWaitResponse = {
+    seconds: number
+    cart: CartResponse
+}
+
+
 export type CalculateWithDeliveryResponse = {
     goodsPrice: number,
     totalSum: number
@@ -42,9 +54,13 @@ export const defaultSum: CalculateWithDeliveryResponse = {
 }
 
 
-export const defaultCart:CartResponse = {
+export const defaultCart: CartResponse = {
     cartSum: 0,
     orders: [],
 }
 
 
+export const defaultTimeToWaitResponse = {
+    seconds: 0,
+    cart: defaultCart
+}
