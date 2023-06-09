@@ -49,10 +49,16 @@ function Calculator({setCurrentSum, setToppings, toppings, callbackMap, order}: 
     const [serverToppings, setServerToppings] = useState<ToppingCategory[]>(fakeToppingCategories);
     useEffect(() => {
         fetchData('http://localhost:8080/api/v1/topping/size', (x: ToppingInfoType[]) => {
-            setSizeToppings(x.map(i => new ToppingInfo(i)));
+            const toppingInfos = x.map(i => new ToppingInfo(i));
+            setSizeToppings(toppingInfos);
+            // const available = getAvailable(toppingInfos);
+            // setCurrentSum(x => x + available.price)
         });
         fetchData('http://localhost:8080/api/v1/topping/dough', (x: ToppingInfoType[]) => {
-            setDoughToppings(x.map(i => new ToppingInfo(i)));
+            const toppingInfos = x.map(i => new ToppingInfo(i));
+            setDoughToppings(toppingInfos);
+            // const available = getAvailable(toppingInfos);
+            // setCurrentSum(x => x + available.price)
         });
         fetchData('http://localhost:8080/api/v1/topping/categories', (x: ToppingCategoryType[]) => {
             const categories: ToppingCategory[] = x.map(i => {
@@ -62,7 +68,7 @@ function Calculator({setCurrentSum, setToppings, toppings, callbackMap, order}: 
             console.log("fetch: " + categories[0].toppings[0].isAvailable());
             setServerToppings(categories);
         });
-    }, []);
+    }, [setCurrentSum]);
 
     function capitalizeFirstLetter(str: string): string {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -123,11 +129,23 @@ function Calculator({setCurrentSum, setToppings, toppings, callbackMap, order}: 
                                                   selectedTab={selectedTab.name}/>;
 
     function setSize(size: ToppingInfo) {
+        setCurrentSum(x => x + size.price - getSizePrice())
         setOrder(o => ({...o, size: size.name}))
     }
 
     function setDough(dough: ToppingInfo) {
+        setCurrentSum(x => x + (dough.price - getDoughPrice()))
         setOrder(o => ({...o, dough: dough.name}))
+    }
+
+    function getDoughPrice() {
+        const old = order.value.dough;
+        return doughToppings.find(x => x.name === old)?.price || 0;
+    }
+
+    function getSizePrice() {
+        const old = order.value.size;
+        return sizeToppings.find(x => x.name === old)?.price || 0;
     }
 
     function getAvailable(list: ToppingInfo[]) {

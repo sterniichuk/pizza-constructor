@@ -9,7 +9,8 @@ import {Address, defaultLocation1, defaultLocations, RestaurantLocation} from ".
 import {
     CalculateWithDeliveryResponse,
     CartResponse,
-    defaultSum, Order,
+    defaultSum,
+    Order,
     OrderState,
     TimeToWaitResponse
 } from "../../data/OrderRequest";
@@ -242,14 +243,17 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
             for (let i = 0; i < orders.length; i++) {
                 const x = orders[i];
                 console.log(x);
-                if ((x.state > OrderState.STORED && x.state < OrderState.DELIVERED)) {
+                if ((x.state > OrderState.STORED && x.state < OrderState.ORDER_DONE)) {
                     return true;
                 }
             }
             return false;
         }
-
-        if (time % 10 === 0) {
+        let frequency = 20;
+        if(time <= 20){
+            frequency = 2;
+        }
+        if (time % frequency === 0) {
             console.log("10 sec");
             const find: boolean = findOrderToWait(cart.value.orders)
             if (find !== undefined) {
@@ -261,8 +265,8 @@ function Cart({address, setAddress, cart, backToMain, token = "", headerSum}: Pr
                         if (data.seconds === 0 && time === 0) {
                             return;
                         }
-                        setTime(data.seconds);
                         cart.setValue(() => response.cart);
+                        setTime(data.seconds);
                         return data.seconds;
                     } catch (error) {
                         console.error('Error fetching data:', error);

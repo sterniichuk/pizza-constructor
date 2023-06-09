@@ -60,7 +60,7 @@ function Login({show, close, tokenProps}: Props) {
             tokenProps.setValue(() => {
                 console.log("res.token: " + res.token)
                 alert("Success login")
-                return res.token;
+                return "Bearer " + res.token;
             });
         })
         close();

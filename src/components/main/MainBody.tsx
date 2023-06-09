@@ -55,7 +55,7 @@ function MainBody({setCartSum, token = "", callLogin}: Props) {
         setCurrentSum(initialState);
     }
 
-    const initialState = 180;
+    const initialState = 166;
     const [currentSum, setCurrentSum] = useState(initialState);
     const [order, setOrder] = useState<OrderRequest>({
         size: "",

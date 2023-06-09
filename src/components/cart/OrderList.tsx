@@ -99,6 +99,7 @@ function OrderList({cart, token = ""}: Props) {
                     </div>
                 </div>;
                 const orderMenu = !o.paid ? orderMenuValue : null;
+                const toppingsOfOrder =o.data.toppings.length === 0? "" : o.data.toppings.reduce((p, c) => (p + " " + c));
                 return <li key={"o.orderId: " + o.orderId} className={"order-in-cart-list"}>
                     <div className="order-image">
                         <img src={pizzaImg} alt="pizza"/>
@@ -113,7 +114,7 @@ function OrderList({cart, token = ""}: Props) {
                                 </div>
                             </div>
                             <p className={"dough-order"}>{o.data.dough}</p>
-                            <p className={"toppings-of-order"}>{o.data.toppings.reduce((p, c) => (p + " " + c))}</p>
+                            <p className={"toppings-of-order"}>{toppingsOfOrder}</p>
                         </div>
                         {orderMenu}
                     </div>
